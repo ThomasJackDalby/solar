@@ -1,7 +1,8 @@
 // Base unit
 
 // Inputs
-board_size = 50;
+tol = 3;
+board_size = 50 + tol;
 board_height = 3;
 
 capaciter_length = 30;
@@ -10,6 +11,9 @@ capaciter_diameter = 7.5;
 face_size = 4;
 edge_size = 6;
 corner_size = 8;
+
+lid_holes_depth = 5;
+lid_holes_diameter = 3.8;
 
 rest_size = 3;
 
@@ -24,7 +28,7 @@ edge_xysize = board_size + (2 * edge_size);
 face_offset = corner_size - face_size;
 edge_offset = corner_size - edge_size;
 
-rest_height = base_thickness + capaciter_diameter;
+rest_height = base_thickness + capaciter_diameter + 4;
 
 total_height = base_thickness + capaciter_diameter + board_height + 10;
 points = [[0,0], [1,0], [1,1], [0,1]];
@@ -58,9 +62,20 @@ difference() {
         }
     }
     
-    // Hollow out for board
-    translate([face_offset + face_size, face_offset + face_size, base_thickness]) {
-       cube([board_size, board_size, total_height], false);
+    #union() {
+        // Hollow out for board
+        translate([face_offset + face_size, face_offset + face_size, base_thickness]) {
+           cube([board_size, board_size, total_height], false);
+        }
+        
+        // side holes     
+        lid_holes_offset = edge_offset + (edge_size/2);
+        for(i = [0:3]) {
+            
+                translate([lid_holes_offset + (edge_size + board_size) * points[i][0], lid_holes_offset + (edge_size + board_size) * points[i][1], total_height - lid_holes_depth]) { 
+                        cylinder(d=lid_holes_diameter, h=lid_holes_depth + 1, center=false, $fn=10);
+                }
+        }
     }
 }
 
