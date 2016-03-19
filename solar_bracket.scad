@@ -9,13 +9,13 @@ panel_bevel = 1.8;
 panel_edge = 2;
 display_panel = false;
 
-external_margin = 5;
-internal_margin = 7;
+external_margin = 3;
+internal_margin = 8;
 total_height = 4;
 total_size = panel_size + (external_margin * 2);
     
 hole_diameter = 3.8;
-hole_margin = 5;
+hole_margin = 8;
 
 // Method
 module bracket() {
@@ -24,7 +24,7 @@ module bracket() {
             difference() {
                 union() {
                     cube([total_size, total_size, total_height], false);
-                    cylinder(r=hole_diameter+hole_margin, h=total_height, center=false);
+                    cylinder(d=hole_diameter+hole_margin, h=total_height, center=false);
                 }
                 union() {       
                     origin = external_margin + internal_margin;
@@ -41,7 +41,7 @@ module bracket() {
             
         }
         translate([0,0,-0.5]) {
-            cylinder(r=hole_diameter, h=total_height+1, center=false);
+            cylinder(d=hole_diameter, h=total_height+1, center=false);
         }
     }
 }
