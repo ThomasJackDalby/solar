@@ -2,7 +2,9 @@
 
 // Inputs
 
-panel_size = 50;
+actual_panel_size = 50;
+tolerance = 3;
+panel_size = actual_panel_size + tolerance;
 panel_height = 2.8;
 
 panel_bevel = 1.8;
@@ -14,7 +16,7 @@ internal_margin = 8;
 total_height = 4;
 total_size = panel_size + (external_margin * 2);
     
-hole_diameter = 3.8;
+hole_diameter = 4;
 hole_margin = 8;
 
 // Method
